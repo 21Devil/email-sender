@@ -5,8 +5,8 @@ Simple Python program that allows user to send randomly generated quote
 from a csv file header 'Quote' to any gmail user. 
 The program contains CLI which requires user to pass 3 arguments. 
 This is the first personal project I have made so there is no graphical component at all.
-
 <br>
+
 ### Install
 No major install needed. If not installed install python3. Make sure that the password you enter 
 is <b>app password</b> of sender email. Note: make sure there are no space in app password.
