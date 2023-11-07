@@ -1,19 +1,19 @@
+import re
 import sys
 import smtplib
 from random import choice
 from csv import DictReader
-from pyisemail import is_email
 
 QUOTES_CSV_FILE = "quotes.csv"
 NO_OF_ARGUMENTS = 4
 
 
 def main():
-
+    
     sender_email, app_password, receiver_email = parse_arguments()
 
     # Check if email is valid email or not.
-    if is_email(sender_email) and is_email(receiver_email):
+    if email_check(str(sender_email)) and email_check(str(receiver_email)):
         print("The email is valid....")
     else:
         print("InputError: Enter valid email address.")
@@ -35,6 +35,18 @@ def parse_arguments():
     return from_addr, password, to_addr
 
 
+# Function to check if email is valid.
+def email_check(email):
+    # Defining a regular expression pattern for basic email validation.
+    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    
+    # Checking if email matches the pattern.
+    if re.match(pattern, email):
+        return True
+    else:
+        return False
+
+
 # Function to send a random quote out of 1665 quote as an email.
 def sending_email(from_addr, password, to_addr):
 
@@ -50,8 +62,8 @@ def sending_email(from_addr, password, to_addr):
     quote = choice(quotes)
 
     # TODO: send the email to user with that quote as message.
-    msg = str("Quote of the day \n", quote)
-
+    # Spend hrs figuring out that ,  creates tupule and + concatinates.
+    msg = "Quote of the day!\n\n" + quote
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(from_addr, password)
